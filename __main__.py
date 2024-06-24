@@ -20,7 +20,7 @@ if __name__ == '__main__':
     # model = CNNModel()
     # model = MahjongModel()
     model = ResMahjongModel()
-    data_dir = '/data/shaka_brah_v3.pkl'
+    data_dir = '/data/shaka_brah_v4.pkl'
     model.load_state_dict(torch.load(data_dir, map_location = torch.device('cpu')))
     input() # 1
     while True:

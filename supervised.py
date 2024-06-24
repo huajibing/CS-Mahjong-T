@@ -18,10 +18,10 @@ if __name__ == '__main__':
     vloader = DataLoader(dataset = validateDataset, batch_size = batchSize, shuffle = False)
     
     # Load model
-    # model = CNNModel().to('cuda')
+    ## model = CNNModel().to('cuda')
     # model = MahjongModel().to('cuda')
     model = ResMahjongModel().to('cuda')
-    optimizer = torch.optim.Adam(model.parameters(), lr = 2e-3)
+    optimizer = torch.optim.Adam(model.parameters(), lr = 5e-3)
     
     # Train and validate
     for e in range(16):

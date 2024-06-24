@@ -124,16 +124,22 @@ class ResMahjongModel(nn.Module):
         self.bn2 = nn.BatchNorm2d(128)
         self.relu2 = nn.ReLU(inplace=True)
         
+        self.res_blocks2 = nn.Sequential(
+            ResidualBlock(128),
+            ResidualBlock(128),
+            ResidualBlock(128)
+        )
+        
         self.att_conv = nn.Conv2d(128, 1, kernel_size=1, stride=1, padding=0)
         self.att_bn = nn.BatchNorm2d(1)
         self.att_relu = nn.ReLU(inplace=True)
         self.att_softmax = nn.Softmax(dim=-1)
         
-        self.fc1 = nn.Linear(128*4*9, 256)
+        self.fc1 = nn.Linear(128*4*9, 512)
         self.fc_bn1 = nn.BatchNorm1d(256)
         self.fc_relu1 = nn.ReLU(inplace=True)
         
-        self.fc2 = nn.Linear(256, 256)
+        self.fc2 = nn.Linear(512, 256)
         self.fc_relu2 = nn.ReLU(inplace=True)
         self.fc3 = nn.Linear(256, action_dim)
         
@@ -143,6 +149,7 @@ class ResMahjongModel(nn.Module):
         x = self.relu1(self.bn1(self.conv1(x)))
         x = self.res_blocks(x)
         feature = self.relu2(self.bn2(self.conv2(x)))
+        feature = self.res_blocks2(feature)
         
         att = self.att_softmax(self.att_relu(self.att_bn(self.att_conv(feature))))
         feature = feature * att
