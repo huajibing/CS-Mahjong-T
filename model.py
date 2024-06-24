@@ -136,7 +136,7 @@ class ResMahjongModel(nn.Module):
         self.att_softmax = nn.Softmax(dim=-1)
         
         self.fc1 = nn.Linear(128*4*9, 512)
-        self.fc_bn1 = nn.BatchNorm1d(256)
+        self.fc_bn1 = nn.BatchNorm1d(512)
         self.fc_relu1 = nn.ReLU(inplace=True)
         
         self.fc2 = nn.Linear(512, 256)
